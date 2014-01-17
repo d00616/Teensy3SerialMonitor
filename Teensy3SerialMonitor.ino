@@ -1,7 +1,11 @@
 /*
  * Read data from any serial ports an relay it to other ports
  */
+// Baud rate
 #define BAUD 4800
+// Invert serial logic
+//#define INVERT
+
 #define LED_PIN 13
 
 void setup()
@@ -13,6 +17,15 @@ void setup()
   Serial1.begin(BAUD);
   Serial2.begin(BAUD);
   Serial3.begin(BAUD);  
+  
+  #ifdef INVERT
+    UART0_C3 = UART0_C3 & 16;
+    UART1_C3 = UART1_C3 & 16;
+    UART2_C3 = UART2_C3 & 16;
+    UART0_S2 = UART0_S2 & 16;
+    UART1_S2 = UART1_S2 & 16;
+    UART2_S2 = UART2_S2 & 16;
+  #endif
 }
 
 char c=0;
